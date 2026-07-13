@@ -1,0 +1,25 @@
+# Java / Maven
+target/
+*.jar
+*.war
+*.ear
+*.class
+
+# Node / NPM
+node_modules/
+dist/
+npm-debug.log
+yarn-error.log
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+*.swp
+.DS_Store
+
+# Logs
+*.log
+
+# Other
+.env
