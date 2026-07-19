@@ -26,6 +26,10 @@
           <el-icon><User /></el-icon>
           <span>管理员管理</span>
         </el-menu-item>
+        <el-menu-item index="/sms" v-if="role === '1'">
+          <el-icon><Message /></el-icon>
+          <span>短信管理</span>
+        </el-menu-item>
       </el-menu>
     </el-aside>
     
@@ -50,7 +54,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { Odometer, Money, Setting, User } from '@element-plus/icons-vue'
+import { Odometer, Money, Setting, User, Message } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import request from '../utils/request'
 

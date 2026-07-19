@@ -36,6 +36,12 @@ const routes: Array<RouteRecordRaw> = [
         name: 'AdminManage',
         component: () => import('../views/admin/AdminManage.vue'),
         meta: { title: '管理员管理', superAdminOnly: true }
+      },
+      {
+        path: 'sms',
+        name: 'SmsSend',
+        component: () => import('../views/sms/SmsSend.vue'),
+        meta: { title: '发送短信', superAdminOnly: true }
       }
     ]
   }
@@ -46,7 +52,8 @@ const router = createRouter({
   routes
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
+  console.log(_from.path);
   const token = localStorage.getItem('admin_token');
   const role = localStorage.getItem('admin_role');
 

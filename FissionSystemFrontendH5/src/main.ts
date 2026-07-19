@@ -18,3 +18,5 @@ app.use(CellGroup)
 app.use(NavBar)
 
 app.mount('#app')
+// Force rebuild to generate new static file hashes and bypass cache
+

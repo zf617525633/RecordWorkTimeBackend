@@ -37,7 +37,6 @@ const loadUserInfo = async () => {
 };
 
 const shareLink = () => {
-  const appId = localStorage.getItem('appId') || 'app_test_01';
   const url = `http://localhost:3000/auth?inviteCode=${inviteCode.value}&source=wechat_moments`;
   // 在真实H5环境中，可调用 navigator.clipboard.writeText(url) 或微信JS-SDK进行分享
   showToast('链接已复制：' + url);

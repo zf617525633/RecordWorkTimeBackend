@@ -27,6 +27,9 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private FissionAccountMapper accountMapper;
 
+    @Autowired
+    private com.fission.backend.service.SmsService smsService;
+
     private static final String TICKET_PREFIX = "fission:auth:ticket:";
     private static final String TOKEN_PREFIX = "fission:auth:token:";
     private static final String SMS_PREFIX = "fission:auth:sms:";
@@ -72,31 +75,19 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void sendSmsCode(String appId, String phone) {
-        // 生成6位随机验证码
-        String code = String.valueOf(new Random().nextInt(899999) + 100000);
-        
-        // 模拟发送短信
-        System.out.println("【Mock SMS】向手机号 " + phone + " 发送验证码: " + code);
-
-        // 存入 Redis，有效期5分钟
-        String redisKey = SMS_PREFIX + appId + ":" + phone;
-        redisTemplate.opsForValue().set(redisKey, code, 5, TimeUnit.MINUTES);
+        // 调用真正的阿里云短信服务发送验证码
+        smsService.sendSmsCode(phone);
     }
 
     @Override
     @Transactional
     public String loginByPhone(String appId, String phone, String smsCode) {
-        String redisKey = SMS_PREFIX + appId + ":" + phone;
-        String storedCode = redisTemplate.opsForValue().get(redisKey);
-
-        if (storedCode == null || !storedCode.equals(smsCode)) {
-            // For mock testing convenience, we can allow a universal code "123456"
+        // 调用真正的短信验证服务
+        if (!smsService.verifyCode(phone, smsCode)) {
+            // 保留万能测试验证码 123456 方便调试
             if (!"123456".equals(smsCode)) {
                 throw new RuntimeException("验证码错误或已过期");
             }
-        } else {
-            // 验证通过，删除验证码
-            redisTemplate.delete(redisKey);
         }
 
         // 查找用户

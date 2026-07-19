@@ -174,6 +174,8 @@ import { showToast } from 'vant';
 import request from '../../utils/request';
 import { GiftBox, RedEnvelope, PlayTwo, Currency, Ticket, Trophy } from '@icon-park/vue-next';
 import '@icon-park/vue-next/styles/index.css';
+const _icons = [Currency, Ticket, Trophy, GiftBox, RedEnvelope, PlayTwo];
+console.log('Registered icons:', _icons.length);
 
 const router = useRouter();
 const homeData = ref<any>({
@@ -279,7 +281,12 @@ onMounted(() => {
 /* Header Area */
 .header-section {
   background: linear-gradient(135deg, #ff8c3b, #ff5f2e);
-  padding: 30px 20px 60px 20px;
+  padding: 20px;
+  /* 更大幅度地加大顶部内边距，并将整体最小高度改高 */
+  padding-top: calc(80px + env(safe-area-inset-top, 0px));
+  padding-bottom: 70px;
+  min-height: 240px;
+  box-sizing: border-box;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
   color: #fff;

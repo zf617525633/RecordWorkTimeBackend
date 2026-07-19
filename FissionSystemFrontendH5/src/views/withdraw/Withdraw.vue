@@ -31,7 +31,7 @@
       
       <div class="submit-btn-wrap">
         <van-button round block type="primary" native-type="submit" :loading="loading">
-          提交提现申请 (预计 ￥{{ (form.pointsConsumed / 100).toFixed(2) }})
+          提交提现申请 (预计 ￥{{ (Number(form.pointsConsumed) / 100).toFixed(2) }})
         </van-button>
       </div>
     </van-form>
